@@ -1,17 +1,14 @@
-import canonicalLaneMathlib.AdmissibleClass
+import EuclideanRingsGeneralizationsCanonicalLaneLean.BridgeLemmas
 
 namespace HautevilleHouse
 namespace EuclideanRingsGeneralizationsCanonicalLaneLean
 
-def AdmissibleClass : Type := canonicalLaneMathlib.AdmissibleClass
+def gateClosed (A : AdmissibleClass) : Prop :=
+  A.endpointSatisfied ∨ A.remainderRecorded
 
-def bridgeClosed (A : AdmissibleClass) : Prop := True
-
-def gateClosed (A : AdmissibleClass) : Prop := True
-
-def bridge_from_admissible_class (A : AdmissibleClass) : bridgeClosed A := trivial
-
-def gate_from_admissible_class (A : AdmissibleClass) : gateClosed A := trivial
+theorem gate_from_admissible_class (A : AdmissibleClass) :
+    gateClosed A := by
+  exact A.gateWitness
 
 end EuclideanRingsGeneralizationsCanonicalLaneLean
 end HautevilleHouse
