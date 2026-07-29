@@ -1,27 +1,30 @@
-import EuclideanRingsGeneralizationsCanonicalLaneLean.BridgeLemmas
+import canonicalLaneMathlib.AdmissibleClass
 
 namespace HautevilleHouse
 namespace EuclideanRingsGeneralizationsCanonicalLaneLean
 
 structure HardyWeinbergPackage where
-  alleleFrequencyA : ℝ
-  alleleFrequencyB : ℝ
-  expectedAA : ℝ
-  expectedAB : ℝ
-  expectedBB : ℝ
-  observedAA : ℕ
-  observedAB : ℕ
-  observedBB : ℕ
-  chiSquaredStatistic : ℝ
-  equilibriumThreshold : ℝ
-  equilibriumHolds : Prop
-  equilibriumHoldsTerm : equilibriumHolds
+  populationGenotypeFrequencies : Type u
+  equilibriumCondition : Prop
+  alleleFrequenciesStable : Prop
+  expectedGenotypeFrequencies : Prop
+  observedVariance : Prop
+
+structure HardyWeinbergEvidence (H : HardyWeinbergPackage) where
+  equilibriumConditionClosed : H.equilibriumCondition
+  alleleFrequenciesStableClosed : H.alleleFrequenciesStable
+  expectedGenotypeFrequenciesClosed : H.expectedGenotypeFrequencies
+  observedVarianceClosed : H.observedVariance
 
 def HardyWeinbergClosed (H : HardyWeinbergPackage) : Prop :=
-  H.equilibriumHolds
+  H.equilibriumCondition ∧ H.alleleFrequenciesStable ∧
+  H.expectedGenotypeFrequencies ∧ H.observedVariance
 
-theorem hardy_weinberg_closed_from_package (H : HardyWeinbergPackage) : HardyWeinbergClosed H :=
-  H.equilibriumHoldsTerm
+theorem hardy_weinberg_closed_from_evidence (H : HardyWeinbergPackage)
+    (E : HardyWeinbergEvidence H) : HardyWeinbergClosed H := by
+  exact And.intro E.equilibriumConditionClosed
+    (And.intro E.alleleFrequenciesStableClosed
+      (And.intro E.expectedGenotypeFrequenciesClosed E.observedVarianceClosed))
 
 end EuclideanRingsGeneralizationsCanonicalLaneLean
 end HautevilleHouse
