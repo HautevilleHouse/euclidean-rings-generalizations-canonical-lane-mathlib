@@ -1,10 +1,10 @@
-import EuclideanRingsGeneralizationsCanonicalLaneLean.Projection
+import EuclideanRingsGeneralizationsCanonicalLaneLean.EuclideanRingAdmissibleClass
 
 namespace HautevilleHouse
 namespace EuclideanRingsGeneralizationsCanonicalLaneLean
 
 def bridgeClosed (A : AdmissibleClass) : Prop :=
-  EuclideanRingWitnessClosed A.object
+  EuclideanWitnessClosed A.object
 
 theorem bridge_from_admissible_class (A : AdmissibleClass) :
     bridgeClosed A := by
