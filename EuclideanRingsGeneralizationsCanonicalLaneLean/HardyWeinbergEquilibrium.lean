@@ -1,24 +1,27 @@
-import EuclideanRingsGeneralizationsCanonicalLaneLean.AdmissibleClass
-
-/-!
-# Hardy-Weinberg Equilibrium Package
--/
+import EuclideanRingsGeneralizationsCanonicalLaneLean.BridgeLemmas
 
 namespace HautevilleHouse
 namespace EuclideanRingsGeneralizationsCanonicalLaneLean
 
 structure HardyWeinbergPackage where
-  alleleFrequencies : Type u
-  genotypeFrequencies : Type v
-  equilibriumCondition : Prop
-  randomMatingAssumption : Prop
+  alleleFrequencyA : ℝ
+  alleleFrequencyB : ℝ
+  expectedAA : ℝ
+  expectedAB : ℝ
+  expectedBB : ℝ
+  observedAA : ℕ
+  observedAB : ℕ
+  observedBB : ℕ
+  chiSquaredStatistic : ℝ
+  equilibriumThreshold : ℝ
+  equilibriumHolds : Prop
+  equilibriumHoldsTerm : equilibriumHolds
 
 def HardyWeinbergClosed (H : HardyWeinbergPackage) : Prop :=
-  H.equilibriumCondition ∧ H.randomMatingAssumption
+  H.equilibriumHolds
 
-theorem hardy_weinberg_closed (H : HardyWeinbergPackage) (h_eq : H.equilibriumCondition) (h_rm : H.randomMatingAssumption) :
-    HardyWeinbergClosed H := by
-  exact And.intro h_eq h_rm
+theorem hardy_weinberg_closed_from_package (H : HardyWeinbergPackage) : HardyWeinbergClosed H :=
+  H.equilibriumHoldsTerm
 
 end EuclideanRingsGeneralizationsCanonicalLaneLean
 end HautevilleHouse
