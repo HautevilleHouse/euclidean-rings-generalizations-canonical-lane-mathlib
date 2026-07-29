@@ -9,7 +9,8 @@ structure AdmissibleClass where
   remainderRecorded : Prop
   gateWitness : endpointSatisfied ∨ remainderRecorded
 
-def admittedClosure (A : AdmissibleClass) : Prop := True
+def admittedClosure (A : AdmissibleClass) : Prop :=
+  EuclideanRingClosed A.object ∧ (A.endpointSatisfied ∨ A.remainderRecorded)
 
 end EuclideanRingsGeneralizationsCanonicalLaneLean
 end HautevilleHouse
